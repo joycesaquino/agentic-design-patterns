@@ -1,0 +1,13 @@
+# Agentic Design Patterns - Dependencies
+
+# Core LangChain
+langchain-core>=0.3.0
+
+# OpenAI Integration
+langchain-openai>=0.2.0
+
+# Optional: For development
+# pytest>=8.0.0
+# black>=24.0.0
+# mypy>=1.8.0
+
