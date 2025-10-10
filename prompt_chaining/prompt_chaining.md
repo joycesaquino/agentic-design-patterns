@@ -2,21 +2,20 @@
 
 ## 1\. Introdução ao Prompt Chaining
 
-O prompt chaining, também chamado de padrão **Pipeline**, é uma técnica fundamental para lidar com tarefas complexas usando Grandes Modelos de Linguagem (LLMs) ao adotar uma estratégia de **dividir para conquistar**.
-
-Em vez de tentar resolver um problema grande em uma única etapa com um prompt gigantesco e complexo de maneira monolítica, essa abordagem decompõe a tarefa em uma sequência de subproblemas menores. 
+O prompt chaining, também chamado de padrão **Pipeline**, é uma técnica fundamental para lidar com tarefas complexas usando Grandes Modelos de Linguagem (LLMs) adotando a estratégia de **dividir para conquistar**.
+A intenção é evitar de resolver um problema grande em uma única etapa com um prompt gigantesco e complexo de maneira monolítica, essa abordagem decompõe a tarefa em uma sequência de subproblemas menores. 
 A chave do processo é que a saída de um prompt serve estrategicamente como entrada para o próximo.
 
 Essa modularidade aumenta a **confiabilidade** e o **controle** sobre o processo. 
-Cada etapa na cadeia pode ser desenvolvida, testada e otimizada de forma independente, facilitando a depuração e a manutenção.
+Cada etapa na cadeia pode ser desenvolvida, testada e otimizada de forma independente, facilitando a debug e a manutenção.
 
-Esse conceito serve como espinha dorsal na construção de **agentes de IA sofisticados**, pois permite:
+Esse conceito serve como um excelente padrão na construção de **agentes de IA complexos e assertivos**, pois permite:
 
   - Raciocínio em múltiplas etapas.
   - Gerenciamento de estado entre as etapas.
-  - A integração de ferramentas externas ou conhecimento estruturado (como dados em JSON ou chamadas de APIs).
+  - A integração de ferramentas externas ou conhecimento estruturado (como dados em JSON, FAQ ou chamadas de APIs).
 
-Ao adotar essa abordagem, você ganha controle, reduz a complexidade e abre portas para a criação de aplicações de IA muito mais poderosas e sofisticadas.
+Ao adotar essa abordagem, você ganha controle, reduz a complexidade e abre portas para a criação de aplicações de IA muito mais poderosas.
 
 ## 2\. Conexões com a Engenharia de Software
 
@@ -34,7 +33,7 @@ Entender essas conexões ajuda a construir sistemas de IA mais sólidos e escal�
 | **Saga** | Gerencia transações de longa duração em sistemas distribuídos com compensações. | Relevante para agentes de IA que executam tarefas complexas e precisam de mecanismos de tratamento de erros. |
 
 
-## 4\. Exemplo de Uso - Recomendador de Séries de TV
+## 4\. Exemplo de Uso - Escolhendo Séries de TV
 
 ### 4.1 Fluxo de Dados do Pipeline
 
@@ -56,12 +55,6 @@ flowchart TD
     end
     
     Parser2 --> End([Final Output:<br/>Personalized Recommendation])
-    
-    style Start fill:#e1f5ff
-    style Criteria fill:#fff3cd
-    style End fill:#d4edda
-    style Stage1 fill:#f0f0f0
-    style Stage2 fill:#f0f0f0
 ```
 
 ### 4.2 Descrição do Exemplo
