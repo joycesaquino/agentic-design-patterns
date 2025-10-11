@@ -33,9 +33,9 @@ Entender essas conexões ajuda a construir sistemas de IA mais sólidos e escal�
 | **Saga** | Gerencia transações de longa duração em sistemas distribuídos com compensações. | Relevante para agentes de IA que executam tarefas complexas e precisam de mecanismos de tratamento de erros. |
 
 
-## 4\. Exemplo de Uso - Escolhendo Séries de TV
+## 3\. Exemplo de Uso - Escolhendo Séries de TV
 
-### 4.1 Fluxo de Dados do Pipeline
+### 3.1 Fluxo de Dados do Pipeline
 
 ```mermaid
 flowchart TD
@@ -57,7 +57,7 @@ flowchart TD
     Parser2 --> End([Final Output:<br/>Personalized Recommendation])
 ```
 
-### 4.2 Descrição do Exemplo
+### 3.2 Descrição do Exemplo
 
 **Input do Usuário (Texto Bruto):**
 
@@ -107,15 +107,5 @@ Com certeza! Baseado no que você procura, uma excelente sugestão é **"Ruptura
 Assim como em Black Mirror, ela explora o impacto da tecnologia na sociedade de uma forma inquietante. 
 Os episódios são concisos e a produção é recente, se encaixando perfeitamente no que você pediu!
 ```
-
-
-## 8\. Próximos Passos
-
-1. **Adicionar persistência**: Salvar critérios extraídos para análise
-2. **Implementar feedback loop**: Permitir que usuário refine recomendações
-3. **Integrar APIs externas**: Buscar séries em catálogos reais (TMDB, IMDB)
-4. **Adicionar mais padrões**: ReAct, Tool Use, Multi-Agent Systems
-5. **Implementar tratamento de erros**: Retry logic, fallbacks, compensações
-
 
 
