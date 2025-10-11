@@ -1,0 +1,7 @@
+# Chainlit configuration
+[project]
+enable_telemetry = false
+
+[UI]
+name = "Agentic Design Patterns"
+

@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Lint with Python
+        run: |
+          python -m py_compile ai_core/*.py
+          python -m py_compile prompt_chaining/*.py
+          python -m py_compile ai_chat/*.py
+          python -m py_compile main.py
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    env:
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      LLM_MODEL: ${{ vars.LLM_MODEL || 'gpt-4o-mini' }}
+      LLM_TEMPERATURE: ${{ vars.LLM_TEMPERATURE || '0.2' }}
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: Verify imports
+        run: |
+          python -c "from ai_core import build_llm; print('✓ ai_core OK')"
+          python -c "from prompt_chaining import TVSeriesRecommender; print('✓ prompt_chaining OK')"
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Build Docker image
+        run: docker build -t agentic-design-patterns:test .
+      
+      - name: Verify Docker image
+        run: docker images | grep agentic-design-patterns
+

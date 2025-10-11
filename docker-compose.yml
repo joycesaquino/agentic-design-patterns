@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  ai-chat:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-gpt-4o-mini}
+      - LLM_TEMPERATURE=${LLM_TEMPERATURE:-0.2}
+    volumes:
+      - .:/app
+    restart: unless-stopped
+
