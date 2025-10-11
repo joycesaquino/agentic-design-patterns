@@ -1,13 +1,7 @@
-"""
-Chainlit Chat Interface for Agentic Design Patterns.
-
-Integrates with prompt_chaining pattern to provide interactive chat.
-"""
 import os
 import sys
 import chainlit as cl
 
-# Add parent directory to path to import from ai_core and prompt_chaining
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from ai_core import build_llm
@@ -28,8 +22,8 @@ async def start():
     
     # Welcome message
     await cl.Message(
-        content="👋 Olá! Sou seu assistente de recomendação de séries.\n\n"
-                "Descreva o tipo de série que você procura (gênero, tema, duração, etc.) "
+        content="Oi! Sou seu assistente de recomendação de séries.\n\n"
+                "Descreva o tipo de série que você procura"
                 "e vou sugerir algo perfeito para você!"
     ).send()
 
@@ -45,14 +39,12 @@ async def main(message: cl.Message):
     await msg.send()
     
     # Extract criteria
-    await msg.stream_token("🔍 Analisando critérios...\n\n")
     criteria = recommender.extract_criteria(message.content)
     await msg.stream_token(f"**Critérios identificados:**\n{criteria}\n\n")
     
     # Generate recommendation
-    await msg.stream_token("🎬 Gerando recomendação...\n\n")
     result = recommender.recommend(message.content)
     await msg.stream_token(f"**Recomendação:**\n{result['recommendation']}")
-    
+
     await msg.update()
 
