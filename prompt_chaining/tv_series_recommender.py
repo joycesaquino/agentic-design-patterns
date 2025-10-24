@@ -103,38 +103,3 @@ class TVSeriesRecommender:
             "recommendation": recommendation
         }
 
-
-def run_example(llm: Any) -> None:
-    """
-    Executa o exemplo de recomendação de séries.
-    
-    Args:
-        llm: Instância configurada de LLM
-    """
-    recommender = TVSeriesRecommender(llm)
-    
-    # Input de exemplo
-    input_text = (
-        "Queria ver uma série de ficção científica que tenha mistério, "
-        "tipo Black Mirror, mas que não seja muito longa. "
-        "E que seja mais nova, dos últimos 2 anos."
-    )
-    
-    print("\n" + "="*70)
-    print("EXEMPLO: TV Series Recommender - Prompt Chaining")
-    print("="*70)
-    
-    print("\n[ENTRADA DO USUÁRIO]")
-    print(f'"{input_text}"')
-    
-    # Executar pipeline
-    result = recommender.recommend(input_text)
-    
-    print("\n[ETAPA 1: CRITÉRIOS EXTRAÍDOS]")
-    print(result["criteria"])
-    
-    print("\n[ETAPA 2: RECOMENDAÇÃO FINAL]")
-    print(result["recommendation"])
-    
-    print("\n" + "="*70)
-

@@ -4,7 +4,7 @@ services:
   ai-chat:
     build: .
     ports:
-      - "8000:8000"
+      - "8001:8001"
     env_file:
       - .env
     environment:
@@ -13,5 +13,7 @@ services:
       - LLM_TEMPERATURE=${LLM_TEMPERATURE:-0.2}
     volumes:
       - .:/app
+      # Volumes anônimos para evitar conflito com .chainlit no host
+      - /app/ai_chat/.chainlit
     restart: unless-stopped
 
