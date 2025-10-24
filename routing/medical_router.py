@@ -1,16 +1,3 @@
-"""
-Medical Triage Router - Exemplo de Routing baseado em LLM.
-
-Este módulo implementa um sistema de triagem médica que direciona consultas
-de pacientes para a especialidade médica apropriada usando um LLM como roteador.
-
-Arquitetura:
-    User Query → [Router LLM] → Specialty Selection → [Specialized Agent] → Response
-
-Padrão de Design:
-    - Strategy Pattern: Cada especialidade é uma estratégia com seu próprio prompt
-    - Router Pattern: LLM analisa a entrada e seleciona dinamicamente a especialidade
-"""
 from __future__ import annotations
 
 import sys
@@ -32,8 +19,6 @@ from . import prompts
 
 
 class RouteDefinition:
-    """Define uma rota específica no sistema de roteamento."""
-    
     def __init__(self, name: str, description: str, keywords: Optional[List[str]] = None):
         self.name = name
         self.description = description
@@ -61,7 +46,6 @@ class IntelligentRouter:
         raise NotImplementedError("Not implemented for this router")
     
     def _get_routes_description(self) -> str:
-        """Retorna a descrição formatada de todas as rotas disponíveis."""
         return "\n".join([
             f"- {route.name}: {route.description}"
             for route in self.routes
@@ -81,14 +65,12 @@ class IntelligentRouter:
         return prompt | self.llm | StrOutputParser()
     
     def _setup_router_chain(self) -> None:
-        """Cria a chain de roteamento que usa o LLM para selecionar a rota."""
         self.router_chain = self._create_chain(prompts.ROUTER_TEMPLATE)
     
     def _setup_route_chains(self) -> None:
         raise NotImplementedError("Not implemented for this router")
     
     def _execute_route(self, route_name: str, user_input: str) -> str:
-        """Executa a chain associada à rota selecionada."""
         route_name = route_name.strip().lower()
         
         if route_name not in self.route_chains:
@@ -99,7 +81,6 @@ class IntelligentRouter:
         return chain.invoke({"user_input": user_input})
     
     def route(self, user_input: str) -> Dict[str, Any]:
-        """Processa a entrada do usuário através do sistema de roteamento."""
         selected_route = self.router_chain.invoke({
             "routes_description": self._get_routes_description(),
             "user_input": user_input
@@ -126,12 +107,7 @@ class MedicalRouter(IntelligentRouter):
     """
     
     def __init__(self, llm: Any):
-        """
-        Inicializa o roteador de triagem e configura todas as rotas e chains.
-        
-        Args:
-            llm: Instância configurada de LLM
-        """
+
         super().__init__(llm)
         self._setup_routes()
         self._setup_router_chain()
@@ -144,7 +120,7 @@ class MedicalRouter(IntelligentRouter):
         Cada RouteDefinition contém:
         - name: Identificador da especialidade
         - description: Descrição clara para o LLM entender quando usar esta rota
-        - keywords: Palavras-chave associadas (para documentação)
+        - keywords: Palavras-chave associadas
         """
         self.routes = [
             RouteDefinition(
@@ -183,7 +159,7 @@ class MedicalRouter(IntelligentRouter):
         - Uma chain (prompt | llm | parser) dedicada
         
         Usa o dicionário SPECIALTY_TEMPLATES do módulo prompts para criar
-        as chains de forma dinâmica e sem repetição de código.
+        as chains de forma dinâmica.
         """
         self.route_chains = {
             specialty: self._create_chain(template)

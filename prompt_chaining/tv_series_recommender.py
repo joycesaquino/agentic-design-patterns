@@ -1,15 +1,3 @@
-"""
-TV Series Recommender - Exemplo de Prompt Chaining
-
-Este módulo implementa um recomendador de séries de TV usando o padrão
-de Prompt Chaining (Pipeline):
-
-1. Extração: Identifica critérios de busca a partir de texto livre
-2. Transformação: Gera recomendação personalizada baseada nos critérios
-
-Arquitetura:
-    User Input → [extraction_chain] → Criteria → [transform_chain] → Recommendation
-"""
 from __future__ import annotations
 
 import sys

@@ -1,14 +1,3 @@
-"""
-Prompts para o Sistema de Roteamento Médico.
-
-Este módulo centraliza todos os templates de prompts usados no medical router,
-melhorando a legibilidade e facilitando a manutenção.
-"""
-
-# ==============================================================================
-# ROUTER PROMPT - Prompt usado para selecionar a especialidade apropriada
-# ==============================================================================
-
 ROUTER_TEMPLATE = """Você é um sistema de triagem inteligente. Analise a consulta do paciente e determine qual especialidade médica é mais apropriada.
 
 Especialidades disponíveis:
@@ -23,10 +12,6 @@ Consulta do paciente: {user_input}
 
 Especialidade selecionada:"""
 
-
-# ==============================================================================
-# SPECIALTY PROMPTS - Prompts para cada especialidade médica
-# ==============================================================================
 
 PEDIATRIC_TEMPLATE = """Você é um assistente de pediatria. 
 Seu tom é calmo, gentil e focado na saúde de crianças e bebês.
@@ -72,10 +57,6 @@ Consulta: {user_input}
 
 Sua resposta:"""
 
-
-# ==============================================================================
-# TEMPLATE MAPPING - Mapeamento de especialidades para templates
-# ==============================================================================
 
 SPECIALTY_TEMPLATES = {
     "pediatria": PEDIATRIC_TEMPLATE,
