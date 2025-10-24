@@ -19,7 +19,7 @@ agentic-design-patterns/
 ├── routing/                   # Padrão: Routing
 │   ├── __init__.py
 │   ├── routing.md
-│   └── routing_example.py
+│   └── medical_router.py
 │
 ├── ai_chat/                   # Interface de chat (Chainlit)
 │   └── app.py
@@ -34,16 +34,10 @@ agentic-design-patterns/
 ### Configuração Inicial
 
 ```bash
-# 1. Instalar dependências
 pip install -r requirements.txt
 
-# 2. Configurar variáveis de ambiente
 # Editar arquivo .env com sua API key
 nano .env
-
-# Ou criar a partir do exemplo
-cp .env.example .env
-# Depois edite o .env com seus valores
 ```
 
 ### Opção 1: Chat Interface (Local) - Recomendado
@@ -53,8 +47,6 @@ A melhor forma de experimentar os padrões é através da interface de chat inte
 ```bash
 # Carregar variáveis de ambiente
 set -a; source .env; set +a
-
-# Iniciar a interface de chat
 cd ai_chat
 chainlit run app.py
 ```
@@ -67,12 +59,10 @@ A interface permite alternar entre **Chat Profiles**:
 
 ```bash
 docker-compose up
-# Acessar: http://localhost:8000
+# Acessar: http://localhost:8001
 ```
 
 ## Padrões Implementados
-
-Todos os padrões podem ser testados de forma interativa através da interface de chat (`ai_chat/app.py`).
 
 ### 1. Prompt Chaining
 
@@ -93,17 +83,17 @@ Sistema de tomada de decisão dinâmico que analisa a entrada e direciona para a
 **Exemplo Interativo:** 🏥 Triagem Médica Inteligente
 - Analisa a consulta médica do paciente em linguagem natural
 - Roteia dinamicamente para a especialidade apropriada
-- 5 especialidades: Pediatria (👶), Nutrologia (🥗), Psicologia (🧠), Fisioterapia (🏃), Default (💬)
-- Cada especialidade tem seu próprio prompt, tom de voz e personalidade
+- 5 especialidades: Pediatria, Nutrologia, Psicologia, Fisioterapia, Default.
+- Cada especialidade tem seu próprio prompt, tom de voz e "personalidade"
 
 📖 Documentação: [`routing/routing.md`](./routing/routing.md)  
-💻 Código: [`routing/routing_example.py`](routing/medical_router.py)
+💻 Código: [`routing/medical_router.py`](routing/medical_router.py)
 
 ### Como Testar
 
 1. Inicie a interface: `cd ai_chat && chainlit run app.py`
 2. Selecione um **Chat Profile** no menu superior
-3. Interaja com o padrão em tempo real
+3. Interaja com o padrão escolhido
 
 ## GitHub Actions
 
@@ -120,5 +110,3 @@ O projeto está configurado com CI/CD usando GitHub Actions:
 3. Adicione variables opcionais:
    - `LLM_MODEL` (padrão: gpt-4o-mini)
    - `LLM_TEMPERATURE` (padrão: 0.2)
-
-📖 Detalhes: [`.github/SECRETS.md`](./.github/SECRETS.md)
