@@ -1,15 +1,3 @@
-"""
-TV Series Recommender - Exemplo de Prompt Chaining
-
-Este módulo implementa um recomendador de séries de TV usando o padrão
-de Prompt Chaining (Pipeline):
-
-1. Extração: Identifica critérios de busca a partir de texto livre
-2. Transformação: Gera recomendação personalizada baseada nos critérios
-
-Arquitetura:
-    User Input → [extraction_chain] → Criteria → [transform_chain] → Recommendation
-"""
 from __future__ import annotations
 
 import sys
@@ -102,39 +90,4 @@ class TVSeriesRecommender:
             "criteria": criteria,
             "recommendation": recommendation
         }
-
-
-def run_example(llm: Any) -> None:
-    """
-    Executa o exemplo de recomendação de séries.
-    
-    Args:
-        llm: Instância configurada de LLM
-    """
-    recommender = TVSeriesRecommender(llm)
-    
-    # Input de exemplo
-    input_text = (
-        "Queria ver uma série de ficção científica que tenha mistério, "
-        "tipo Black Mirror, mas que não seja muito longa. "
-        "E que seja mais nova, dos últimos 2 anos."
-    )
-    
-    print("\n" + "="*70)
-    print("EXEMPLO: TV Series Recommender - Prompt Chaining")
-    print("="*70)
-    
-    print("\n[ENTRADA DO USUÁRIO]")
-    print(f'"{input_text}"')
-    
-    # Executar pipeline
-    result = recommender.recommend(input_text)
-    
-    print("\n[ETAPA 1: CRITÉRIOS EXTRAÍDOS]")
-    print(result["criteria"])
-    
-    print("\n[ETAPA 2: RECOMENDAÇÃO FINAL]")
-    print(result["recommendation"])
-    
-    print("\n" + "="*70)
 

@@ -1,15 +1,17 @@
 """
-Agentic Design Patterns - Demonstração Executável
+Agentic Design Patterns - Projeto de Demonstração
 
-Este script demonstra diferentes padrões arquiteturais para construção
-de agentes de IA, começando com Prompt Chaining.
+Este projeto demonstra diferentes padrões arquiteturais para construção
+de agentes de IA usando conceitos de engenharia de software.
 
 Estrutura do Projeto:
-    /ai-core/              → Configuração centralizada de LLM
-    /prompt-chaining/      → Implementação do padrão Pipeline
+    /ai_core/              → Configuração centralizada de LLM
+    /prompt_chaining/      → Implementação do padrão Pipeline
+    /routing/              → Implementação do padrão Routing
+    /ai_chat/              → Interface de chat interativa (Chainlit)
     
 Requisitos:
-    pip install -U langchain-core langchain-openai
+    pip install -r requirements.txt
 
 Ambiente:
     - OPENAI_API_KEY: Sua chave da API OpenAI
@@ -17,41 +19,43 @@ Ambiente:
     - LLM_TEMPERATURE (opcional): Temperatura (default: 0.2)
 
 Execução:
-    python main.py
+    Para experimentar os padrões de forma interativa, use a interface de chat:
+    
+    cd ai_chat
+    chainlit run app.py
+    
+    A interface permite alternar entre diferentes chat profiles:
+    - 🎬 Prompt Chaining: Recomendador de séries de TV
+    - 🏥 Routing: Triagem médica inteligente
 """
 from __future__ import annotations
 
 import sys
 
-# Imports dos módulos locais
-try:
-    from ai_core import build_llm
-    from prompt_chaining.tv_series_recommender import run_example
-except ImportError as e:
-    print(
-        f"Erro ao importar módulos do projeto: {e}\n\n"
-        "Certifique-se de estar executando do diretório raiz do projeto.\n",
-        file=sys.stderr,
-    )
-    sys.exit(1)
-
 
 def main() -> None:
     """Ponto de entrada principal da aplicação."""
     print("\n" + "="*70)
-    print("AGENTIC DESIGN PATTERNS - Demonstração")
+    print("AGENTIC DESIGN PATTERNS")
     print("="*70)
-    print("\nPadrão demonstrado: PROMPT CHAINING (Pipeline)\n")
     
-    # Inicializar LLM através do módulo centralizado
-    print("Inicializando LLM...")
-    llm = build_llm()
-    print(f"✓ LLM configurado: {llm.model_name} (temperature={llm.temperature})\n")
+    print("\n📚 Padrões Implementados:\n")
+    print("  1. Prompt Chaining - Pipeline de recomendação de séries")
+    print("  2. Routing - Roteador de triagem médica\n")
     
-    # Executar exemplo de Prompt Chaining
-    run_example(llm)
+    print("🚀 Para experimentar os padrões de forma interativa:\n")
+    print("  cd ai_chat")
+    print("  chainlit run app.py\n")
     
-    print("\n✓ Demonstração concluída com sucesso!\n")
+    print("💡 A interface permite alternar entre diferentes chat profiles,")
+    print("   cada um demonstrando um padrão de design específico.\n")
+    
+    print("📖 Documentação:")
+    print("  - Prompt Chaining: prompt_chaining/prompt_chaining.md")
+    print("  - Routing: routing/routing.md")
+    print("  - README.md: Visão geral do projeto\n")
+    
+    print("="*70 + "\n")
 
 
 if __name__ == "__main__":
