@@ -16,6 +16,11 @@ agentic-design-patterns/
 │   ├── prompt_chaining.md
 │   └── tv_series_recommender.py
 │
+├── routing/                   # Padrão: Routing
+│   ├── __init__.py
+│   ├── routing.md
+│   └── medical_router.py
+│
 ├── ai_chat/                   # Interface de chat (Chainlit)
 │   └── app.py
 │
@@ -29,48 +34,66 @@ agentic-design-patterns/
 ### Configuração Inicial
 
 ```bash
-# 1. Editar arquivo .env com sua API key
+pip install -r requirements.txt
+
+# Editar arquivo .env com sua API key
 nano .env
-
-# Ou criar a partir do exemplo
-cp .env.example .env
-# Depois edite o .env com seus valores
 ```
 
-### Opção 1: CLI (Terminal)
+### Opção 1: Chat Interface (Local) - Recomendado
+
+A melhor forma de experimentar os padrões é através da interface de chat interativa:
 
 ```bash
-pip install -r requirements.txt
+# Carregar variáveis de ambiente
 set -a; source .env; set +a
-export OPENAI_API_KEY='sk-...'
-python main.py
-```
-
-### Opção 2: Chat Interface (Chainlit + Docker)
-
-```bash
-docker-compose up
-# Acessar: http://localhost:8000
-```
-
-### Opção 3: Chat Interface (Local)
-
-```bash
-pip install -r requirements.txt
-
-set -a; source .env; set +a
-
 cd ai_chat
 chainlit run app.py
 ```
 
+A interface permite alternar entre **Chat Profiles**:
+- 🎬 **Prompt Chaining**: Recomendador de séries de TV
+- 🏥 **Routing**: Triagem médica inteligente
+
+### Opção 2: Chat Interface (Docker)
+
+```bash
+docker-compose up
+# Acessar: http://localhost:8001
+```
+
 ## Padrões Implementados
 
-### Prompt Chaining
+### 1. Prompt Chaining
 
-Decompõe tarefas complexas em etapas sequenciais.
+Decompõe tarefas complexas em etapas sequenciais (pipeline).
 
-📖 Documentação: [`prompt_chaining/prompt_chaining.md`](./prompt_chaining/prompt_chaining.md)
+**Exemplo Interativo:** 🎬 Recomendador de séries de TV
+- Etapa 1: Extrai critérios do texto livre do usuário
+- Etapa 2: Gera recomendação personalizada baseada nos critérios
+- Interface mostra cada etapa do pipeline em tempo real
+
+📖 Documentação: [`prompt_chaining/prompt_chaining.md`](./prompt_chaining/prompt_chaining.md)  
+💻 Código: [`prompt_chaining/tv_series_recommender.py`](./prompt_chaining/tv_series_recommender.py)
+
+### 2. Routing
+
+Sistema de tomada de decisão dinâmico que analisa a entrada e direciona para a rota especializada apropriada.
+
+**Exemplo Interativo:** 🏥 Triagem Médica Inteligente
+- Analisa a consulta médica do paciente em linguagem natural
+- Roteia dinamicamente para a especialidade apropriada
+- 5 especialidades: Pediatria, Nutrologia, Psicologia, Fisioterapia, Default.
+- Cada especialidade tem seu próprio prompt, tom de voz e "personalidade"
+
+📖 Documentação: [`routing/routing.md`](./routing/routing.md)  
+💻 Código: [`routing/medical_router.py`](routing/medical_router.py)
+
+### Como Testar
+
+1. Inicie a interface: `cd ai_chat && chainlit run app.py`
+2. Selecione um **Chat Profile** no menu superior
+3. Interaja com o padrão escolhido
 
 ## GitHub Actions
 
@@ -87,5 +110,3 @@ O projeto está configurado com CI/CD usando GitHub Actions:
 3. Adicione variables opcionais:
    - `LLM_MODEL` (padrão: gpt-4o-mini)
    - `LLM_TEMPERATURE` (padrão: 0.2)
-
-📖 Detalhes: [`.github/SECRETS.md`](./.github/SECRETS.md)
